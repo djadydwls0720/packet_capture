@@ -40,7 +40,7 @@ typedef struct _TCP_HDR {
 } TCP_HDR;
 
 typedef struct _tcp_packet {
-    unsigned char data[30];
+    unsigned char data[];
 } TCP_DATA;
 
 typedef struct ipv4_packet {
@@ -66,7 +66,7 @@ void packet_handler(u_char* user_data, const struct pcap_pkthdr* pkthdr, const u
         printf("TCP dst port: %d\n", ntohs(packet_header->tcp_hdr.dest_port));
 
         printf("\nPacket data (%d byte):\n", bytes);
-        for (int i = 0; i < bytes; i++) {
+        for (int i = 0; i < bytes  && packet_header->tcp_data.data[i]!='\0'; i++) {
             printf("%02X ", packet_header->tcp_data.data[i]);
 
             if ((i + 1) % 8 == 0) printf(" ");
