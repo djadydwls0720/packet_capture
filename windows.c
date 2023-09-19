@@ -1,11 +1,9 @@
 
 #include <stdio.h>
-#include <Winsock2.h>
 #include <pcap.h>
 
-#pragma comment(lib,"ws2_32.lib")
-#pragma pack(push, 1)
 #define ETH_ALEN 6
+#pragma pack(push, 1)
 
 
 typedef struct ip_hdr {
@@ -43,7 +41,7 @@ typedef struct _TCP_HDR {
 } TCP_HDR;
 
 typedef struct _tcp_packet {
-    BYTE data[30];
+    BYTE data[];
 } TCP_DATA;
 
 typedef struct ipv4_packet {
@@ -76,18 +74,18 @@ void packet_handler(u_char* user_data, const struct pcap_pkthdr* pkthdr, BYTE* p
 
 
         printf("\nPacket data (%d byte):\n", bytes);
-        for (int i = 0; i < bytes; i++) {
+        for (int i = 0; i < bytes && packet_header->tcp_data.data[i]!='\0'; i++) {
             printf("%02X ", packet_header->tcp_data.data[i]);
 
-            if ((i + 1) % 8 == 0)  // 16바이트마다 줄 바꿈
+            if ((i + 1) % 8 == 0)
                 printf(" ");
 
-            if ((i + 1) % 16 == 0)  // 16바이트마다 줄 바꿈
+            if ((i + 1) % 16 == 0) 
                 printf("\n");
         }
 
         printf("\n----------------------------------------------------\n\n");
-    }//20
+    }
 
 
 }
