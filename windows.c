@@ -79,10 +79,10 @@ void packet_handler(u_char* user_data, const struct pcap_pkthdr* pkthdr, BYTE* p
         for (int i = 0; i < bytes; i++) {
             printf("%02X ", packet_header->tcp_data.data[i]);
 
-            if ((i + 1) % 8 == 0)  // 16¹ÙÀÌÆ®¸¶´Ù ÁÙ ¹Ù²Ş
+            if ((i + 1) % 8 == 0)  // 16ë°”ì´íŠ¸ë§ˆë‹¤ ì¤„ ë°”ê¿ˆ
                 printf(" ");
 
-            if ((i + 1) % 16 == 0)  // 16¹ÙÀÌÆ®¸¶´Ù ÁÙ ¹Ù²Ş
+            if ((i + 1) % 16 == 0)  // 16ë°”ì´íŠ¸ë§ˆë‹¤ ì¤„ ë°”ê¿ˆ
                 printf("\n");
         }
 
